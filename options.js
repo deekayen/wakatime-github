@@ -1,24 +1,28 @@
 function saveOptions(e) {
   e.preventDefault();
-  browser.storage.local.set({
+  let setting = browser.storage.sync.set({
     wakatime_apikey: document.querySelector("#key").value
   });
+  function showSuccess() {
+    document.querySelector("#success").style.display = "block";
+  }
+
+  setting.then(showSuccess);
 }
 
 function restoreOptions() {
 
   function setCurrentChoice(result) {
-    document.querySelector("#key").value = result.key || "";
+    document.querySelector("#key").value = result.wakatime_apikey || "";
   }
 
   function onError(error) {
     console.log(`Error: ${error}`);
   }
 
-  var getting = browser.storage.local.get("wakatime_apikey");
+  let getting = browser.storage.sync.get("wakatime_apikey");
   getting.then(setCurrentChoice, onError);
 }
 
 document.addEventListener("DOMContentLoaded", restoreOptions);
 document.querySelector("form").addEventListener("submit", saveOptions);
-
