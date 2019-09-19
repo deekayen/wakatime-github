@@ -1,7 +1,6 @@
 function trackTime(keyPromise) {
-  const {domain, owner, project} = readDomainOwnerAndProject();
-  const branch = readBranch();
-  const entity = "bitbucket.org";
+  const {domain, owner, project} = readOwnerAndProject();
+  const entity = "github.com";
   let havenOnlyScrolledInCurrentInterval = false;
 
   function scrollHandler() {
@@ -10,14 +9,14 @@ function trackTime(keyPromise) {
 
   window.setInterval(function() {
     if (havenOnlyScrolledInCurrentInterval) {
-      sendHeartbeat(preparePayload(entity, "app", project, branch, false));
+      sendHeartbeat(preparePayload(entity, project));
       havenOnlyScrolledInCurrentInterval = false;
     }
   }, 30000);
 
-  function readDomainOwnerAndProject() {
+  function readOwnerAndProject() {
     const url = window.location.href;
-    const regexp = /http[s]?:\/\/([a-zA-Z0-9]*\.[a-z]*)\/(\w*)\/([\w-]*).*/g;
+    const regexp = /http[s]?:\/\/([a-zA-Z0-9]*\.[a-z]*)\/([\w-_]*)\/([\w-_]*).*/g;
     const matched = regexp.exec(url);
     const domain = matched[1];
     const owner = matched[2];
@@ -26,19 +25,14 @@ function trackTime(keyPromise) {
             project: project};
   }
 
-  function readBranch() {
-    return document.querySelector("#id_source_group .branch a").textContent;
-  }
-
-  function preparePayload(entity, type, project, branch, is_write) {
+  function preparePayload(entity, project) {
     return {
       entity: entity,
-      type: type,
+      type: "domain",
       time: (new Date).getTime()/1000,
       project: project,
-      branch: branch,
-      is_write: is_write,
-      editor: "bitbucket.org"
+      is_write: false,
+      editor: "GitHub"
     };
   }
 
@@ -64,5 +58,5 @@ function keyNotProvided(error) {
   console.log("You should first configure this plugin by providing wakatime key");
 }
 
-let key = browser.storage.local.get("key");
+let key = browser.storage.local.get("wakatime_apikey");
 key.then(trackTime, keyNotProvided);

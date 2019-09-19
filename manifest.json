@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
-  "name": "wakatime-review",
+  "name": "wakatime-github",
   "version": "1.0",
-  "description": "Measure time spent on review and sends it to wakatime",
+  "description": "Measure time spent on GitHub and sends it to wakatime",
 
   "icons": {
     "48": "icons/pull_request-48.png"
@@ -20,14 +20,14 @@
 
   "content_scripts": [
     {
-      "matches": ["*://bitbucket.org/*/pull-requests/*"],
-      "js": ["wakatime-review.js"]
+      "matches": ["*://github.com/*"],
+      "js": ["wakatime-github.js"]
     }
   ],
 
   "applications": {
     "gecko": {
-      "id": "wakatime_review@github.com"
+      "id": "wakatime_github@github.com"
     }
   }
 

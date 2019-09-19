@@ -1,7 +1,7 @@
 function saveOptions(e) {
   e.preventDefault();
   browser.storage.local.set({
-    key: document.querySelector("#key").value
+    wakatime_apikey: document.querySelector("#key").value
   });
 }
 
@@ -15,7 +15,7 @@ function restoreOptions() {
     console.log(`Error: ${error}`);
   }
 
-  var getting = browser.storage.local.get("key");
+  var getting = browser.storage.local.get("wakatime_apikey");
   getting.then(setCurrentChoice, onError);
 }
 
