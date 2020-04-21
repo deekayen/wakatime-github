@@ -7,3 +7,7 @@ Bundle up all the files except the `.git` folder, LICENSE, and README.md as a zi
 Or build and test with the `web-ext` utility.
 
 https://extensionworkshop.com/documentation/develop/web-ext-command-reference/#web-ext-build
+
+## Configuration
+
+Don't forget to set your WakaTime API key in the add-on preferences or you'll have wasted your time installing this.
