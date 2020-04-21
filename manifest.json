@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "wakatime-github",
   "version": "1.0",
-  "description": "Measure time spent on GitHub and sends it to wakatime",
+  "description": "Count time spent on GitHub and send it to WakaTime.",
 
   "icons": {
     "48": "icons/pull_request-48.png"
@@ -15,7 +15,8 @@
   ],
 
   "options_ui": {
-    "page": "options.html"
+    "page": "options.html",
+    "browser_style": true
   },
 
   "content_scripts": [
