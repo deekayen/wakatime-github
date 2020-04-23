@@ -9,7 +9,7 @@ function trackTime(keyPromise) {
 
   window.setInterval(function() {
     if (havenOnlyScrolledInCurrentInterval) {
-      sendHeartbeat(preparePayload(entity, project));
+      sendHeartbeat(preparePayload(entity, "app", project, false));
       havenOnlyScrolledInCurrentInterval = false;
     }
   }, 30000);
@@ -25,13 +25,13 @@ function trackTime(keyPromise) {
             project: project};
   }
 
-  function preparePayload(entity, project) {
+  function preparePayload(entity, type, project, is_write) {
     return {
       entity: entity,
-      type: "domain",
+      type: type,
       time: (new Date).getTime()/1000,
       project: project,
-      is_write: false,
+      is_write: is_write,
       editor: "GitHub"
     };
   }
@@ -45,7 +45,7 @@ function trackTime(keyPromise) {
   };
 
   function clickHandler() {
-    let payload = preparePayload(entity, "app", project, branch, true);
+    let payload = preparePayload(entity, "app", project, true);
     sendHeartbeat(payload);
     havenOnlyScrolledInCurrentInterval = false;
   }
